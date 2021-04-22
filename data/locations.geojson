@@ -1,0 +1,13 @@
+var Locations = {
+"type": "FeatureCollection",
+"name": "locations",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "Name": "English Channel", "URL": "https://www.belowhighwater.net/great-britain" }, "geometry": { "type": "Point", "coordinates": [ -2.056783, 49.924932 ] } },
+{ "type": "Feature", "properties": { "Name": "Western Mediterranean", "URL": "https://www.belowhighwater.net/mediterranean" }, "geometry": { "type": "Point", "coordinates": [ 9.242438, 38.357372 ] } },
+{ "type": "Feature", "properties": { "Name": "Red Sea", "URL": "https://www.belowhighwater.net/red-sea" }, "geometry": { "type": "Point", "coordinates": [ 37.140512, 22.769434 ] } },
+{ "type": "Feature", "properties": { "Name": "Andaman Sea", "URL": "https://www.belowhighwater.net/andaman" }, "geometry": { "type": "Point", "coordinates": [ 98.936248, 7.175845 ] } },
+{ "type": "Feature", "properties": { "Name": "North Atlantic", "URL": "https://www.belowhighwater.net/north-atlantic" }, "geometry": { "type": "Point", "coordinates": [ -16.855761, 30.190398 ] } },
+{ "type": "Feature", "properties": { "Name": "Caribbean", "URL": "https://www.belowhighwater.net/caribbean" }, "geometry": { "type": "Point", "coordinates": [ -59.452821, 13.273892 ] } }
+]
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Below High Water | Photo Galleries</title>
+	<link rel="stylesheet" href="css/leaflet.css" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/screen.css" />
+	<link rel="stylesheet" href="css/MarkerCluster.css" />
+	<link rel="stylesheet" href="css/MarkerCluster.Default.css" />
+	<link rel="stylesheet" href="css/tabs.css" />
+	<script src="js/leaflet.js"></script>
+	<script src="js/TileLayer.Grayscale.js"></script>
+	<script src="js/leaflet.markercluster-src.js"></script>
+	<script type="text/javascript" src="data/locations.geojson"></script>
+	<script type="text/javascript" src="data/locpoly.geojson"></script>
+</head>
+
+<style>A {text-decoration: none;} </style>
+	
+<body>
+	<div id="box"></div>
+	<div id="map">
+	<script type="text/javascript">
+		
+
+		var Satellite = L.tileLayer('http://mt0.google.com/vt/lyrs=s&hl=en&x={x}&y={y}&z={z}', {
+				//bounds: bounds,
+				//maxBounds: bounds,
+				maxZoom: 3,
+				minZoom: 2,
+				attribution: '&copy; <a href="https://about.google/brand-resource-center/products-and-services/geo-guidelines/#required-attribution">Google </a> contributors'
+			}),
+			latlng = L.latLng(25, 10);
+
+				var map = L.map('map', {center: latlng, zoom: 2, layers: [Satellite], fadeAnimation: false });
+		
+		//Marker template
+		var flagALPHA = L.Icon.extend({
+		options: {
+    		shadowUrl: 'markers/icon-shadow.png',
+    		iconSize:     [34, 56], 
+    		shadowSize:   [34, 56], 
+    		iconAnchor:   [17, 56], 
+    		shadowAnchor: [7, 41],  
+    		popupAnchor:  [0, -58]
+		}
+		});
+
+		var flagALPHA = new flagALPHA({iconUrl: 'markers/gallery-marker.png'})		
+		
+		SiteName = "";
+		WebAddy = "";
+		
+		var Dived = new L.GeoJSON(Locations, {
+		pointToLayer: (feature, latlng)=> {
+		return L.marker(latlng, {icon: flagALPHA});
+		},
+		onEachFeature: function (feature,layer) {
+		layer.on('mouseover', function (e) {
+			SiteName = feature.properties.Name
+			WebAddy = feature.properties.URL
+			layer.bindPopup(SiteName)	
+			this.openPopup();
+		console.log(SiteName);
+		});			
+    		}
+		}).on('mouseover', PolyShow).on('mouseout', HidePoly).on('click', GoGallery).addTo(map);
+		
+
+		function GoGallery (e) {
+		window.open(WebAddy);
+		}
+
+		function PolyShow (e) {
+		SitePoly = new L.GeoJSON(LocPoly,{style: WideAng, filter: ClkdSite}).addTo(map)
+		function ClkdSite(feature) {
+  		if (feature.properties.Name === SiteName) return true
+		};
+		SiteBnds = SitePoly.getBounds();
+		}		
+
+		function HidePoly (e) {
+		map.closePopup();
+		map.removeLayer(SitePoly);
+		}
+				
+		function WideAng(feature) {
+		return {
+        	fillColor: 'orange',
+       	 	weight: 2,
+        	opacity: 1,
+        	color: 'orange',  //Outline color
+       		fillOpacity: 0.15
+    		};
+		}
+
+	</script>
+	</div>
+
+</body>
+</html>
